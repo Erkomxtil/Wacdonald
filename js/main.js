@@ -80,6 +80,7 @@ function affichageChoixMenu (e) {
           } else {
             total.push(item.price)          
           }
+          affichageCommande(item)
         }
       }
       commandeSommeTotal()
@@ -95,6 +96,22 @@ function commandeSommeTotal (e) {
   let result = Math.round(final * 100) / 100
   
   cote.innerText = result + " €"
+}
+
+function affichageCommande (itemId) {
+  log(itemId.id)
+  let orderList = document.getElementById("orderList")
+  let blockItem = document.createElement("div")
+  let imageItem = document.createElement("img")
+  let infoItem =  document.createElement("p")
+
+  blockItem.className = "itemOrder"
+  imageItem.src = '../icons/'+ itemId.icon
+  infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
+
+  blockItem.appendChild(imageItem)
+  blockItem.appendChild(infoItem)
+  orderList.appendChild(blockItem)
 }
 
 

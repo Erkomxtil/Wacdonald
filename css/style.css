@@ -150,8 +150,43 @@ body {
   height: 750px;
   margin-top: 5rem;
   margin-bottom: 9.6875rem;
-  overflow: hidden;
   border-top: 1px solid #eaeae8;
+  overflow-y: scroll;
+}
+
+#container aside #orderList::-webkit-scrollbar {
+  display: none;
+}
+
+#container aside #orderList .itemOrder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-bottom: 1px solid #eaeae8;
+  margin-top: 1.875rem;
+}
+
+#container aside #orderList .itemOrder img {
+  width: 3.125rem;
+}
+
+#container aside #orderList .itemOrder p {
+  line-height: 1.6rem;
+}
+
+#container aside #orderList .itemOrder p .itemOrderPrice {
+  font-weight: normal;
+  font-size: 1.25rem;
 }
 
 #container aside #totalDone {
