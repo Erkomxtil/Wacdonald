@@ -4,15 +4,15 @@
         "name": "Combo Meal",
         "promo": "20% off",
         "price": 4.5,
-        "icon": "sandwich.svg",
+        "icon": "combo-meal.png",
         "cat": "menu"
     },
     {
         "id": 2,
-        "name": "Burgers & Sandiches",
+        "name": "Burgers & Sandwiches",
         "promo": null,
         "price": 5,
-        "icon": "birthday-cake.svg",
+        "icon": "burgers-sandwiches.png",
         "cat": "menu"
     },
     {
@@ -20,7 +20,7 @@
         "name": "Happy Meal",
         "promo": null,
         "price": 4.2,
-        "icon": "burger.svg",
+        "icon": "happy-meal.png",
         "cat": "menu"
     },
     {
@@ -28,7 +28,7 @@
         "name": "Beverages",
         "promo": null,
         "price": 2,
-        "icon": "burger.svg",
+        "icon": "drinks.png",
         "cat": "menu"
     },
     {
@@ -36,7 +36,7 @@
         "name": "Chicken",
         "promo": null,
         "price": 4,
-        "icon": "chicken-leg.svg",
+        "icon": "nuggets.png",
         "cat": "menu"
     },
     {
@@ -44,7 +44,7 @@
         "name": "Snack & Sides",
         "promo": null,
         "price": 4,
-        "icon": "chicken-leg.svg",
+        "icon": "french-fries.png",
         "cat": "menu"
     },
     {
@@ -52,7 +52,7 @@
         "name": "Big Meal",
         "promo": "20% off",
         "price": 4.5,
-        "icon": "burger.svg",
+        "icon": "big-mac.png",
         "cat": "product"
     },
     {
@@ -60,7 +60,7 @@
         "name": "Quarter Pounder",
         "promo": null,
         "price": 5,
-        "icon": "hot-dog.svg",
+        "icon": "quarter-pounder.png",
         "cat": "product"
     },
     {
@@ -68,7 +68,7 @@
         "name": "Cheeseburger",
         "promo": null,
         "price": 4.2,
-        "icon": "pizza.svg",
+        "icon": "cheeseburger.png",
         "cat": "product"
     },
     {
@@ -76,7 +76,7 @@
         "name": "Crispy Chicken",
         "promo": null,
         "price": 2,
-        "icon": "chicken-leg.svg",
+        "icon": "crispy-chicken.png",
         "cat": "menu"
     },
     {
@@ -84,7 +84,7 @@
         "name": "Sausage sausage",
         "promo": null,
         "price": 4,
-        "icon": "birthday-cake.svg",
+        "icon": "sausage.png",
         "cat": "product"
     },
     {
@@ -92,7 +92,7 @@
         "name": "Filet-o-Fish",
         "promo": null,
         "price": 4,
-        "icon": "roast-chicken.svg",
+        "icon": "filet-o-fish.png",
         "cat": "product"
     }
 ]

@@ -9,3 +9,161 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+#container {
+  margin: 2rem;
+  display: flex;
+
+  #mainWrapper {
+    width: 69%;
+    font-size: 0.8rem;
+
+    h1 {
+      height: 150px;
+      margin-top: 160px;
+      font-weight: normal;
+      font-size: 3.75rem;
+      .mainTitle {  
+        font-weight: bold;          
+      }
+    }
+  
+    #itemsWrapper {
+      height: 750px;
+      margin-top: 5rem;
+      margin-bottom: 9.6875rem;
+      display: flex;
+      flex-wrap: wrap;
+
+      .item {
+        pointer-events: visible ;
+        margin: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #eeeeee;
+        border-radius: 2rem;
+        text-align: center;
+        width: 170px;
+        height: 190px;
+        font-weight: bold;
+
+        &.promo {
+          background: #c7161e;
+          color: white;
+        }
+        
+        img {
+          pointer-events: none;
+         height: 6.25rem; 
+        }
+        
+        p {
+          pointer-events: none;
+        }
+      }
+    }
+
+    h2 {
+      font-size: 3.75rem;
+      height: 80px;
+    }
+
+    #popularWrapper {
+      margin-top: 70px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .popularItem {
+        margin: 1rem;
+        text-align: center;
+        font-weight: bold;
+
+        img {
+          pointer-events: none;
+        }
+
+        p {
+          pointer-events: none;
+
+          .price {
+            color: #ffca40;
+            font-size: 1.25rem;
+            margin-top: 1.25rem;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  aside {
+    width: 31%;
+    background: #fbfbf9;
+    padding: 0 1.5625rem;
+
+    .logo {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    h3 {
+      margin-top: 160px;
+      height: 150px;
+      font-size: 1.25rem;
+      font-weight: normal;
+      line-height: 2.8rem;
+
+      .titleAside {
+        font-weight: bold;
+        font-size: 2.0625rem;
+      }
+    }
+
+    #orderList {
+      height: 750px;
+      margin-top: 5rem;
+      margin-bottom: 9.6875rem;
+      overflow: hidden;
+      border-top: 1px solid #eaeae8;
+    }
+
+    #totalDone {
+      padding-top: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      h3 {
+        font-weight: normal;
+        margin: 0;
+        height: unset;
+        border-top: 1px solid #eaeae8;
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-top: 1.875rem;
+        font-size: 1.25rem;
+      }
+
+      .globalOrder {
+        font-weight: bold;
+        font-size: 2.375rem;
+      }
+
+      button {
+        background: #ffca40;
+        border: none;
+        padding: 3.75rem 3.125rem;
+        font-size: 1.25rem;
+        border-radius: 3.125rem;
+        margin-top: 3.125rem;
+      }
+    }
+  }
+}

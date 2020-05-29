@@ -10,4 +10,190 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+#container {
+  margin: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#container #mainWrapper {
+  width: 69%;
+  font-size: 0.8rem;
+}
+
+#container #mainWrapper h1 {
+  height: 150px;
+  margin-top: 160px;
+  font-weight: normal;
+  font-size: 3.75rem;
+}
+
+#container #mainWrapper h1 .mainTitle {
+  font-weight: bold;
+}
+
+#container #mainWrapper #itemsWrapper {
+  height: 750px;
+  margin-top: 5rem;
+  margin-bottom: 9.6875rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#container #mainWrapper #itemsWrapper .item {
+  pointer-events: visible;
+  margin: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #eeeeee;
+  border-radius: 2rem;
+  text-align: center;
+  width: 170px;
+  height: 190px;
+  font-weight: bold;
+}
+
+#container #mainWrapper #itemsWrapper .item.promo {
+  background: #c7161e;
+  color: white;
+}
+
+#container #mainWrapper #itemsWrapper .item img {
+  pointer-events: none;
+  height: 6.25rem;
+}
+
+#container #mainWrapper #itemsWrapper .item p {
+  pointer-events: none;
+}
+
+#container #mainWrapper h2 {
+  font-size: 3.75rem;
+  height: 80px;
+}
+
+#container #mainWrapper #popularWrapper {
+  margin-top: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#container #mainWrapper #popularWrapper .popularItem {
+  margin: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+#container #mainWrapper #popularWrapper .popularItem img {
+  pointer-events: none;
+}
+
+#container #mainWrapper #popularWrapper .popularItem p {
+  pointer-events: none;
+}
+
+#container #mainWrapper #popularWrapper .popularItem p .price {
+  color: #ffca40;
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  display: block;
+}
+
+#container aside {
+  width: 31%;
+  background: #fbfbf9;
+  padding: 0 1.5625rem;
+}
+
+#container aside .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+#container aside h3 {
+  margin-top: 160px;
+  height: 150px;
+  font-size: 1.25rem;
+  font-weight: normal;
+  line-height: 2.8rem;
+}
+
+#container aside h3 .titleAside {
+  font-weight: bold;
+  font-size: 2.0625rem;
+}
+
+#container aside #orderList {
+  height: 750px;
+  margin-top: 5rem;
+  margin-bottom: 9.6875rem;
+  overflow: hidden;
+  border-top: 1px solid #eaeae8;
+}
+
+#container aside #totalDone {
+  padding-top: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#container aside #totalDone h3 {
+  font-weight: normal;
+  margin: 0;
+  height: unset;
+  border-top: 1px solid #eaeae8;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-top: 1.875rem;
+  font-size: 1.25rem;
+}
+
+#container aside #totalDone .globalOrder {
+  font-weight: bold;
+  font-size: 2.375rem;
+}
+
+#container aside #totalDone button {
+  background: #ffca40;
+  border: none;
+  padding: 3.75rem 3.125rem;
+  font-size: 1.25rem;
+  border-radius: 3.125rem;
+  margin-top: 3.125rem;
+}
 /*# sourceMappingURL=style.css.map */
