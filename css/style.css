@@ -189,6 +189,31 @@ body {
   font-size: 1.25rem;
 }
 
+#container aside #orderList .itemOrder div {
+  margin-bottom: 20px;
+}
+
+#container aside #orderList .itemOrder div .minus {
+  width: 26px;
+  border-radius: 6px;
+  border: 1px solid #eaeae8;
+  background-color: white;
+}
+
+#container aside #orderList .itemOrder div .countItem {
+  width: 26px;
+  display: inline-block;
+}
+
+#container aside #orderList .itemOrder div .plus {
+  width: 26px;
+  height: 18px;
+  border-radius: 6px;
+  border: none;
+  background-color: #ffca40;
+  line-height: 18px;
+}
+
 #container aside #totalDone {
   padding-top: 150px;
   display: -webkit-box;

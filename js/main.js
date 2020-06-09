@@ -7,17 +7,22 @@ let log = console.log
 let urlSite = document.location.href
 let newUrlSite = urlSite.split("1:")
 let finalUrlSite = newUrlSite[1].substr(0, 5)
-let total = []
+let total = [] /* On créer le tableau du total */
+let itemOrdered = [] /* On vérifie si on a déjà commandé cet article avec l'id du produit */
 
 /* Selecteurs */ 
 let itemsWrapper = document.getElementById('itemsWrapper')
 let popularWrapper = document.getElementById('popularWrapper')
+let orderList = document.getElementById("orderList")
+let minus = orderList.children
 
 /* Les déclencheurs */
 document.addEventListener('DOMContentLoaded', affichageMenu)
 document.addEventListener('DOMContentLoaded', affichagePopular)
 itemsWrapper.addEventListener('click', affichageChoixMenu)
 popularWrapper.addEventListener('click', affichageChoixMenu)
+orderList.addEventListener('click', addItem)
+
 
 /* Functions */
 function affichageMenu () { 
@@ -80,7 +85,7 @@ function affichageChoixMenu (e) {
           } else {
             total.push(item.price)          
           }
-          affichageCommande(item)
+          affichageCommande(item) 
         }
       }
       commandeSommeTotal()
@@ -91,27 +96,80 @@ function affichageChoixMenu (e) {
 function commandeSommeTotal (e) {  
   /* Affichage du total de la commande */ 
   let cote = document.querySelector(".globalOrder")
-  cote.innerHTML = ""
   let final = total.reduce((a, b) => a + b, 0)
   let result = Math.round(final * 100) / 100
   
-  cote.innerText = result + " €"
+  cote.innerHTML = ""
+  if (result.toString().indexOf(".") !== -1 ){
+    cote.innerText = result + "0 €"
+  } else {
+    cote.innerText = result + ".00 €"
+  }
 }
 
 function affichageCommande (itemId) {
-  log(itemId.id)
-  let orderList = document.getElementById("orderList")
   let blockItem = document.createElement("div")
   let imageItem = document.createElement("img")
   let infoItem =  document.createElement("p")
+  let buttonItem = document.createElement('div')
+  let datasetOrder = orderList.childNodes
 
-  blockItem.className = "itemOrder"
-  imageItem.src = '../icons/'+ itemId.icon
-  infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
+  if (datasetOrder.length < 1 ) {    
+    blockItem.className = "itemOrder"
+    blockItem.dataset.id_order = itemId.id
+    imageItem.src = '../icons/'+ itemId.icon
+    infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
+    buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
+    
+    blockItem.appendChild(imageItem)
+    blockItem.appendChild(infoItem)
+    blockItem.appendChild(buttonItem)
+    orderList.appendChild(blockItem)
+  }
 
-  blockItem.appendChild(imageItem)
-  blockItem.appendChild(infoItem)
-  orderList.appendChild(blockItem)
+  if(itemOrdered.includes(itemId.id)) {
+    for (let itemDiv of orderList.childNodes) {
+      let datasetItem = Number(itemDiv.dataset.id_order)
+      if (datasetItem === itemId.id) {                  
+        itemDiv.childNodes[2].innerHTML ='<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
+      }
+    }
+  } else {
+    itemOrdered.push(itemId.id)
+    buttonItem.innerHTML = ""
+    blockItem.className = "itemOrder"
+    blockItem.dataset.id_order = itemId.id
+    imageItem.src = '../icons/'+ itemId.icon
+    infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
+    buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
+    
+    blockItem.appendChild(imageItem)
+    blockItem.appendChild(infoItem)
+    blockItem.appendChild(buttonItem)
+    orderList.appendChild(blockItem)
+  }
 }
 
+function addItem (e){
+  let blockItemOrder = e.target.parentNode.parentNode
+  let datasetItem = blockItemOrder.dataset.id_order
+  let currentCount = Number(e.target.parentNode.childNodes[1].innerText)
+  let countText = e.target.parentNode.childNodes[1]
+  log(blockItemOrder)
+
+  let count = Number(e.currentTarget.querySelector('.countItem' ).innerText)
+  
+  if (minus !== undefined){
+    if (e.target.className === "plus") {
+      countText.innerText = currentCount + 1
+    }
+    if (e.target.className === "minus") {
+      log(currentCount)
+      if ((currentCount -1) < 1) {
+        blockItemOrder.remove()
+      }
+      countText.innerText = Number(currentCount) - 1
+    }
+  } 
+}
 

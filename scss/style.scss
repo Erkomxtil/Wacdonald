@@ -155,6 +155,30 @@ body {
             font-size: 1.25rem;
           }
         }
+
+        div {
+          margin-bottom: 20px;
+          .minus {
+            width: 26px;
+            border-radius: 6px;
+            border: 1px solid #eaeae8;
+            background-color: white;
+          }
+  
+          .countItem {
+            width: 26px;          
+            display: inline-block;
+          }
+  
+          .plus {
+            width: 26px;
+            height: 18px;
+            border-radius: 6px;
+            border: none;
+            background-color: #ffca40;
+            line-height: 18px;
+           }
+        }
       }
     }
 
