@@ -4,7 +4,7 @@
 function ajaxGet(url, callback){
   let req = new XMLHttpRequest()
   // La requête est asynchrone lorsque le 3ème paramètre vaut true ou est absent 
-  req.open("GET", url)
+  req.open("GET", url, true)
   // Gestion de l'événement indiquant la fin de la requête
   req.addEventListener("load", () => {
     if (req.status >= 200 && req.status < 400) { // le serveur a réussi à traiter la requête

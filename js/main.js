@@ -2,7 +2,7 @@ import { ajaxGet } from './ajax.js'
 /* Console log*/
 let log = console.log
 
-/* Variables */
+/* Variables ----------------------------------------------------------------------*/
 /* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url */
 let urlSite = document.location.href
 let newUrlSite = urlSite.split("1:")
@@ -10,21 +10,31 @@ let finalUrlSite = newUrlSite[1].substr(0, 5)
 let total = [] /* On créer le tableau du total */
 let itemOrdered = [] /* On vérifie si on a déjà commandé cet article avec l'id du produit */
 
-/* Selecteurs */ 
+/* Selecteurs ---------------------------------------------------------------------*/ 
 let itemsWrapper = document.getElementById('itemsWrapper')
 let popularWrapper = document.getElementById('popularWrapper')
 let orderList = document.getElementById("orderList")
 let minus = orderList.children
+let globalOrderPrice = document.querySelector(".globalOrder")
+let finCommandeBtn = document.querySelector(".btnDone")
 
-/* Les déclencheurs */
+/* Les déclencheurs  --------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', affichageMenu)
 document.addEventListener('DOMContentLoaded', affichagePopular)
 itemsWrapper.addEventListener('click', affichageChoixMenu)
 popularWrapper.addEventListener('click', affichageChoixMenu)
+finCommandeBtn.addEventListener('click', finCommande)
+
+
+/* Ajouter ou retirer un article à droite */
 orderList.addEventListener('click', addItem)
+orderList.addEventListener('click', removeItem)
 
+/* Affichage du total pour le 1er article d'une catégorie*/
+document.addEventListener('click', affichageTotal)
+document.addEventListener('click', affichageTotalMenu)
 
-/* Functions */
+/* Functions ---------------------------------------------------------------------*/
 function affichageMenu () { 
   ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
     let dataItems = JSON.parse(reponse)
@@ -71,39 +81,16 @@ function affichagePopular () {
 
 function affichageChoixMenu (e) {
   let itemTarget = Number(e.target.dataset.id)
+
   if (itemTarget !== undefined) {
     ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
       let dataItems = JSON.parse(reponse)
       for (let item of dataItems) {
         if (item.id === itemTarget) {
-          if (item.promo !== null) {
-            let promo = item.promo.split('%')
-            let promoPrice = (item.price * Number(promo[0])) / 100
-            let discountPrice = item.price - promoPrice
-            
-            total.push(discountPrice)
-          } else {
-            total.push(item.price)          
-          }
           affichageCommande(item) 
         }
       }
-      commandeSommeTotal()
     })
-  }
-}
-
-function commandeSommeTotal (e) {  
-  /* Affichage du total de la commande */ 
-  let cote = document.querySelector(".globalOrder")
-  let final = total.reduce((a, b) => a + b, 0)
-  let result = Math.round(final * 100) / 100
-  
-  cote.innerHTML = ""
-  if (result.toString().indexOf(".") !== -1 ){
-    cote.innerText = result + "0 €"
-  } else {
-    cote.innerText = result + ".00 €"
   }
 }
 
@@ -127,14 +114,7 @@ function affichageCommande (itemId) {
     orderList.appendChild(blockItem)
   }
 
-  if(itemOrdered.includes(itemId.id)) {
-    for (let itemDiv of orderList.childNodes) {
-      let datasetItem = Number(itemDiv.dataset.id_order)
-      if (datasetItem === itemId.id) {                  
-        itemDiv.childNodes[2].innerHTML ='<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
-      }
-    }
-  } else {
+  if(!itemOrdered.includes(itemId.id)) {
     itemOrdered.push(itemId.id)
     buttonItem.innerHTML = ""
     blockItem.className = "itemOrder"
@@ -150,26 +130,78 @@ function affichageCommande (itemId) {
   }
 }
 
-function addItem (e){
-  let blockItemOrder = e.target.parentNode.parentNode
-  let datasetItem = blockItemOrder.dataset.id_order
-  let currentCount = Number(e.target.parentNode.childNodes[1].innerText)
-  let countText = e.target.parentNode.childNodes[1]
-  log(blockItemOrder)
-
-  let count = Number(e.currentTarget.querySelector('.countItem' ).innerText)
+function commandeSommeTotal (tableau) {  
+  // Affichage du total de la commande 
+  let cote = document.querySelector(".globalOrder")
+  let final = tableau.reduce((a, b) => a + b, 0)
+  let result = Math.round(final * 100) / 100
   
-  if (minus !== undefined){
-    if (e.target.className === "plus") {
-      countText.innerText = currentCount + 1
-    }
-    if (e.target.className === "minus") {
-      log(currentCount)
-      if ((currentCount -1) < 1) {
-        blockItemOrder.remove()
-      }
-      countText.innerText = Number(currentCount) - 1
-    }
+  cote.innerHTML = ""
+  if (result.toString().indexOf(".") !== -1 ){
+    cote.innerText = result + "0 €"
+  } else {
+    cote.innerText = result + ".00 €"
   } 
 }
 
+function addItem (e) {
+  if(e.target.classList.contains("plus")) {
+    let plusOne = e.target.parentNode.querySelector(".countItem")
+    let countText = Number(e.target.parentNode.querySelector(".countItem").innerText)
+    plusOne.innerText = countText + 1
+  }
+}
+
+function removeItem (e) {
+  if(e.target.classList.contains("minus")) {
+    let idOfItemRemoved = Number(e.target.parentNode.parentNode.dataset.id_order)
+    let minusOne = e.target.parentNode.querySelector(".countItem")
+    let countText = Number(e.target.parentNode.querySelector(".countItem").innerText)
+    if (countText - 1 === 0){
+      e.target.parentNode.parentNode.remove() /* J'enlève le produit qui a été commandé */
+      let indexOfId = itemOrdered.indexOf(idOfItemRemoved) /* Je prend l'index du produit pour l'enlever du tableau itemOrdered */
+      if(indexOfId > -1) {
+        itemOrdered.splice(indexOfId, 1)
+      }
+    } else {
+      minusOne.innerText = countText - 1
+    }
+  }
+}
+
+function affichageTotal () {
+  total = []
+  let allItemsOrdered = orderList.childNodes
+  for (let item of allItemsOrdered) {
+    let rawPrice = item.querySelector(".itemOrderPrice").innerText
+    let splitPrice = rawPrice.split(" ")
+    let price = Number(splitPrice[0])
+    let countItem = Number(item.querySelector(".countItem").innerText)
+    let result = price * countItem
+    total.push(result)
+    globalOrderPrice.innerText = result + " €"
+  }
+  commandeSommeTotal(total)
+}
+
+function affichageTotalMenu (e) {
+  let idMenu = e.target.dataset.id
+  if(idMenu !== undefined){
+    ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
+      let dataItems = JSON.parse(reponse)
+      for (let item of dataItems) {
+        if(item.id === Number(idMenu)) {
+          total.push(item.price)
+          log(total)
+        }
+      }
+      commandeSommeTotal(total)
+    })
+  }
+}
+
+function finCommande () {
+
+  alert("Le montant de votre commande est de \n Merci et à bientôt chez WacDonald ! ")
+  document.location.reload(true)
+}
