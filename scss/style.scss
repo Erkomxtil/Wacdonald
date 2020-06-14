@@ -235,15 +235,23 @@ body {
 
     #mainWrapper {
       width: 65%;
-      
+
       #itemsWrapper {
         height: 50%;
+      }
+
+      h2 {
+        font-size: 2.5rem;
       }
     }
 
     aside {
       width: 35%;
       padding: 0 0.5rem;
+
+      #orderList {
+        height: 50%;
+      }
 
       #totalDone {
         button {
