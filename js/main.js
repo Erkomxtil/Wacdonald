@@ -5,10 +5,11 @@ import { ajaxGet } from './ajax.js'
 let log = console.log
 
 /* Variables ----------------------------------------------------------------------*/
-/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url */
+/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url 
 let urlSite = document.location.href
 let newUrlSite = urlSite.split("1:")
-let finalUrlSite = newUrlSite[1].substr(0, 5)
+let finalUrlSite = newUrlSite[1].substr(0, 5)*/
+
 let total = [] /* On créer le tableau du total */
 let itemOrdered = [] /* On vérifie si on a déjà commandé cet article avec l'id du produit */
 
