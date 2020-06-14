@@ -230,7 +230,13 @@ body {
 
 @media screen and (max-width: 1024px) {
   #container {
-    width: 100%;
-    margin: 1rem;
+    width: 90%;
+    margin: 0 5%;
+
+    #mainWrapper {
+      #itemsWrapper {
+        height: 40%;
+      }
+    }
   }
 }
