@@ -273,8 +273,14 @@ body {
     width: 90%;
     margin: 0 5%;
   }
+  #container #mainWrapper {
+    width: 65%;
+  }
   #container #mainWrapper #itemsWrapper {
     height: 50%;
+  }
+  #container aside {
+    width: 35%;
   }
   #container aside #totalDone button {
     padding: 2.75rem 2.125rem;

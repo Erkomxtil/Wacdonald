@@ -234,12 +234,14 @@ body {
     margin: 0 5%;
 
     #mainWrapper {
+      width: 65%;
       #itemsWrapper {
         height: 50%;
       }
     }
 
     aside {
+      width: 35%;
       #totalDone {
         button {
           padding: 2.75rem 2.125rem;
