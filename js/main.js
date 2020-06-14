@@ -38,7 +38,7 @@ document.addEventListener('click', affichageTotalMenu)
 
 /* Functions ---------------------------------------------------------------------*/
 function affichageMenu () { 
-  ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
+  ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
     let dataItems = JSON.parse(reponse)
     for (let item of dataItems) {
       if (item.id < 7) {
@@ -62,7 +62,7 @@ function affichageMenu () {
 }
 
 function affichagePopular () {
-  ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
+  ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
     let popularItems = JSON.parse(reponse)
     for (let popularItem of popularItems) {
       if (popularItem.id > 6) {
@@ -85,7 +85,7 @@ function affichageChoixMenu (e) {
   let itemTarget = Number(e.target.dataset.id)
 
   if (itemTarget !== undefined) {
-    ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
+    ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
       let dataItems = JSON.parse(reponse)
       for (let item of dataItems) {
         if (item.id === itemTarget) {
@@ -189,7 +189,7 @@ function affichageTotal () {
 function affichageTotalMenu (e) {
   let idMenu = e.target.dataset.id
   if(idMenu !== undefined){
-    ajaxGet("http://127.0.0.1:" + finalUrlSite + "/menu.json", (reponse) => {
+    ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
       let dataItems = JSON.parse(reponse)
       for (let item of dataItems) {
         if(item.id === Number(idMenu)) {
