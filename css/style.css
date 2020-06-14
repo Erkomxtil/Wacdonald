@@ -281,6 +281,7 @@ body {
   }
   #container aside {
     width: 35%;
+    padding: 0 0.5rem;
   }
   #container aside #totalDone button {
     padding: 2.75rem 2.125rem;
