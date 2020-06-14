@@ -1,2 +1,2 @@
 # Wacdonald
-Mise en place d'une application avec Javascript
+Mise en place d'une application de commande de burger avec Javascript
