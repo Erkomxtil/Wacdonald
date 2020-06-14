@@ -276,5 +276,8 @@ body {
   #container #mainWrapper #itemsWrapper {
     height: 50%;
   }
+  #container aside #totalDone button {
+    padding: 2.75rem 2.125rem;
+  }
 }
 /*# sourceMappingURL=style.css.map */
