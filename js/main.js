@@ -1,5 +1,7 @@
+/* Import de la fonction ajax */
 import { ajaxGet } from './ajax.js'
-/* Console log*/
+
+/* Console log pour faciliter la recherche d'erreurs */
 let log = console.log
 
 /* Variables ----------------------------------------------------------------------*/
@@ -192,7 +194,6 @@ function affichageTotalMenu (e) {
       for (let item of dataItems) {
         if(item.id === Number(idMenu)) {
           total.push(item.price)
-          log(total)
         }
       }
       commandeSommeTotal(total)
@@ -201,7 +202,7 @@ function affichageTotalMenu (e) {
 }
 
 function finCommande () {
-
-  alert("Le montant de votre commande est de \n Merci et à bientôt chez WacDonald ! ")
+  let sommeTotal = document.querySelector(".globalOrder").innerText
+  alert("Le montant de votre commande est de "+ sommeTotal +" .\nMerci et à bientôt chez WacDonald ! ")
   document.location.reload(true)
 }
