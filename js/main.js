@@ -188,7 +188,6 @@ function affichageTotal () {
 }
 
 function affichageTotalMenu (e) {
-  total = []
   let idMenu = e.target.dataset.id
   if(idMenu !== undefined){
     ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
