@@ -173,23 +173,9 @@ function removeItem (e) {
 }
 
 function affichageTotal () {
-  total = []
-  let allItemsOrdered = orderList.childNodes
-  for (let item of allItemsOrdered) {
-    let rawPrice = item.querySelector(".itemOrderPrice").innerText
-    let splitPrice = rawPrice.split(" ")
-    let price = Number(splitPrice[0])
-    let countItem = Number(item.querySelector(".countItem").innerText)
-    let result = price * countItem
-    total.push(result)
-    globalOrderPrice.innerText = result + " €"
-  }
-  commandeSommeTotal(total)
-}
-
-function affichageTotalMenu (e) {
-  total = []
   let idMenu = e.target.dataset.id
+  let allItemsOrdered = orderList.childNodes
+  
   if(idMenu !== undefined){
     ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
       let dataItems = JSON.parse(reponse)
@@ -200,7 +186,23 @@ function affichageTotalMenu (e) {
       }
       commandeSommeTotal(total)
     })
+  } else {  
+    total = []
+
+    for (let item of allItemsOrdered) {
+      let rawPrice = item.querySelector(".itemOrderPrice").innerText
+      let splitPrice = rawPrice.split(" ")
+      let price = Number(splitPrice[0])
+      let countItem = Number(item.querySelector(".countItem").innerText)
+      let result = price * countItem
+      total.push(result)
+      globalOrderPrice.innerText = result + " €"
+    }
+    commandeSommeTotal(total)
   }
+}
+
+function affichageTotalMenu (e) {
 }
 
 function finCommande () {
