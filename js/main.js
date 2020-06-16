@@ -51,7 +51,7 @@ function affichageMenu () {
           blockItem.classList.add('promo')
         }
         let image = document.createElement("img")
-        image.src = '/icons/'+item.icon
+        image.src = '/Wacdonald/icons/'+item.icon
         let infos = document.createElement('p')
         let promo = item.promo !== null ? '<span class="promoTxt">'+ item.promo + '</span>' : ''
         infos.innerHTML = item.name + "<br>" + promo
@@ -72,7 +72,7 @@ function affichagePopular () {
         blockPopular.className = "popularItem"
         blockPopular.dataset.id = popularItem.id
         let image = document.createElement("img")
-        image.src = '/icons/'+ popularItem.icon
+        image.src = '/Wacdonald/icons/'+ popularItem.icon
         let infos = document.createElement('p')
         infos.innerHTML = popularItem.name + '<br><span class="price">' + popularItem.price + ' €</span>'
         blockPopular.appendChild(image)
@@ -108,7 +108,7 @@ function affichageCommande (itemId) {
   if (datasetOrder.length < 1 ) {    
     blockItem.className = "itemOrder"
     blockItem.dataset.id_order = itemId.id
-    imageItem.src = '/icons/'+ itemId.icon
+    imageItem.src = '/Wacdonald/icons/'+ itemId.icon
     infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
     buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
     
@@ -123,7 +123,7 @@ function affichageCommande (itemId) {
     buttonItem.innerHTML = ""
     blockItem.className = "itemOrder"
     blockItem.dataset.id_order = itemId.id
-    imageItem.src = '/icons/'+ itemId.icon
+    imageItem.src = '/Wacdonald/icons/'+ itemId.icon
     infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
     buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
     
