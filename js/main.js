@@ -5,10 +5,15 @@ import { ajaxGet } from './ajax.js'
 let log = console.log
 
 /* Variables ----------------------------------------------------------------------*/
-/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url 
+/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url  
 let urlSite = document.location.href
 let newUrlSite = urlSite.split("1:")
-let finalUrlSite = newUrlSite[1].substr(0, 5)*/
+let finalUrlSite = newUrlSite[1].substr(0, 5)
+A utiliser de la manière suivante
+ajaxGet("adresseLocalHost" + finalUrlSite + "/menu.json", (reponse) => {
+  let dataItems = JSON.parse(reponse) // la réponse JSon que l'on exploite
+})
+*/
 
 let total = [] /* On créer le tableau du total */
 let itemOrdered = [] /* On vérifie si on a déjà commandé cet article avec l'id du produit */
@@ -32,10 +37,6 @@ finCommandeBtn.addEventListener('click', finCommande)
 /* Ajouter ou retirer un article à droite */
 orderList.addEventListener('click', addItem)
 orderList.addEventListener('click', removeItem)
-
-/* Affichage du total pour le 1er article d'une catégorie*/
-document.addEventListener('click', affichageTotal)
-document.addEventListener('click', affichageTotalMenu)
 
 /* Functions ---------------------------------------------------------------------*/
 function affichageMenu () { 
@@ -131,6 +132,8 @@ function affichageCommande (itemId) {
     blockItem.appendChild(buttonItem)
     orderList.appendChild(blockItem)
   }
+
+  affichageTotalDocument()
 }
 
 function commandeSommeTotal (tableau) {  
@@ -153,6 +156,8 @@ function addItem (e) {
     let countText = Number(e.target.parentNode.querySelector(".countItem").innerText)
     plusOne.innerText = countText + 1
   }
+
+  affichageTotalPlusMoins ()
 }
 
 function removeItem (e) {
@@ -170,9 +175,40 @@ function removeItem (e) {
       minusOne.innerText = countText - 1
     }
   }
+
+  affichageTotalPlusMoins()
 }
 
-function affichageTotal () {
+function affichageTotalDocument () {
+  let orderLength = orderList.childNodes.length
+  if (orderLength === 1){
+    ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
+      let dataItems = JSON.parse(reponse)
+      let idMenu = orderList.childNodes[0].dataset.id_order
+      for (let item of dataItems) {
+        if(item.id === Number(idMenu)) {
+          total.push
+          globalOrderPrice.innerText = item.price + " €"
+        }
+      }
+    })
+  } else {
+    total = []
+    let allItemsOrdered = orderList.childNodes
+    for (let item of allItemsOrdered) {
+      let rawPrice = item.querySelector(".itemOrderPrice").innerText
+      let splitPrice = rawPrice.split(" ")
+      let price = Number(splitPrice[0])
+      let countItem = Number(item.querySelector(".countItem").innerText)
+      let result = price * countItem
+      total.push(result)
+      globalOrderPrice.innerText = result + " €"
+    }
+    commandeSommeTotal(total)
+  } 
+}
+
+function   affichageTotalPlusMoins () {
   total = []
   let allItemsOrdered = orderList.childNodes
   for (let item of allItemsOrdered) {
@@ -185,21 +221,6 @@ function affichageTotal () {
     globalOrderPrice.innerText = result + " €"
   }
   commandeSommeTotal(total)
-}
-
-function affichageTotalMenu (e) {
-  let idMenu = e.target.dataset.id
-  if(idMenu !== undefined){
-    ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
-      let dataItems = JSON.parse(reponse)
-      for (let item of dataItems) {
-        if(item.id === Number(idMenu)) {
-          total.push(item.price)
-        }
-      }
-      commandeSommeTotal(total)
-    })
-  }
 }
 
 function finCommande () {
