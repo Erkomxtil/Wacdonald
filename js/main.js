@@ -172,7 +172,7 @@ function removeItem (e) {
   }
 }
 
-function affichageTotal () {
+function affichageTotal (e) {
   let idMenu = e.target.dataset.id
   let allItemsOrdered = orderList.childNodes
   
