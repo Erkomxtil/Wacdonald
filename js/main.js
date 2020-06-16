@@ -5,10 +5,15 @@ import { ajaxGet } from './ajax.js'
 let log = console.log
 
 /* Variables ----------------------------------------------------------------------*/
-/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url 
+/* En local finalUrlSite va permettre d'avoir les données JSON à enlever par la suite et mettre la bonne url  
 let urlSite = document.location.href
 let newUrlSite = urlSite.split("1:")
-let finalUrlSite = newUrlSite[1].substr(0, 5)*/
+let finalUrlSite = newUrlSite[1].substr(0, 5)
+A utiliser de la manière suivante
+ajaxGet("adresseLocalHost" + finalUrlSite + "/menu.json", (reponse) => {
+  let dataItems = JSON.parse(reponse) // la réponse JSon que l'on exploite
+})
+*/
 
 let total = [] /* On créer le tableau du total */
 let itemOrdered = [] /* On vérifie si on a déjà commandé cet article avec l'id du produit */
@@ -33,10 +38,6 @@ finCommandeBtn.addEventListener('click', finCommande)
 orderList.addEventListener('click', addItem)
 orderList.addEventListener('click', removeItem)
 
-/* Affichage du total pour le 1er article d'une catégorie*/
-document.addEventListener('click', affichageTotal)
-document.addEventListener('click', affichageTotalMenu)
-
 /* Functions ---------------------------------------------------------------------*/
 function affichageMenu () { 
   ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
@@ -50,7 +51,7 @@ function affichageMenu () {
           blockItem.classList.add('promo')
         }
         let image = document.createElement("img")
-        image.src = '/Wacdonald/icons/'+item.icon
+        image.src = '/icons/'+item.icon
         let infos = document.createElement('p')
         let promo = item.promo !== null ? '<span class="promoTxt">'+ item.promo + '</span>' : ''
         infos.innerHTML = item.name + "<br>" + promo
@@ -71,7 +72,7 @@ function affichagePopular () {
         blockPopular.className = "popularItem"
         blockPopular.dataset.id = popularItem.id
         let image = document.createElement("img")
-        image.src = '/Wacdonald/icons/'+ popularItem.icon
+        image.src = '/icons/'+ popularItem.icon
         let infos = document.createElement('p')
         infos.innerHTML = popularItem.name + '<br><span class="price">' + popularItem.price + ' €</span>'
         blockPopular.appendChild(image)
@@ -107,7 +108,7 @@ function affichageCommande (itemId) {
   if (datasetOrder.length < 1 ) {    
     blockItem.className = "itemOrder"
     blockItem.dataset.id_order = itemId.id
-    imageItem.src = '/Wacdonald/icons/'+ itemId.icon
+    imageItem.src = '/icons/'+ itemId.icon
     infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
     buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
     
@@ -122,7 +123,7 @@ function affichageCommande (itemId) {
     buttonItem.innerHTML = ""
     blockItem.className = "itemOrder"
     blockItem.dataset.id_order = itemId.id
-    imageItem.src = '/Wacdonald/icons/'+ itemId.icon
+    imageItem.src = '/icons/'+ itemId.icon
     infoItem.innerHTML = itemId.name + '<br><span class="itemOrderPrice">' + itemId.price + " €</span>"
     buttonItem.innerHTML = '<button class="minus">-</button><span class="countItem"> 1 </span><button class="plus">+</button>'
     
@@ -131,6 +132,8 @@ function affichageCommande (itemId) {
     blockItem.appendChild(buttonItem)
     orderList.appendChild(blockItem)
   }
+
+  affichageTotalDocument()
 }
 
 function commandeSommeTotal (tableau) {  
@@ -153,6 +156,8 @@ function addItem (e) {
     let countText = Number(e.target.parentNode.querySelector(".countItem").innerText)
     plusOne.innerText = countText + 1
   }
+
+  affichageTotalPlusMoins ()
 }
 
 function removeItem (e) {
@@ -170,25 +175,26 @@ function removeItem (e) {
       minusOne.innerText = countText - 1
     }
   }
+
+  affichageTotalPlusMoins()
 }
 
-function affichageTotal (e) {
-  let idMenu = e.target.dataset.id
-  let allItemsOrdered = orderList.childNodes
-  
-  if(idMenu !== undefined){
+function affichageTotalDocument () {
+  let orderLength = orderList.childNodes.length
+  if (orderLength === 1){
     ajaxGet("https://erkomxtil.github.io/Wacdonald/menu.json", (reponse) => {
       let dataItems = JSON.parse(reponse)
+      let idMenu = orderList.childNodes[0].dataset.id_order
       for (let item of dataItems) {
         if(item.id === Number(idMenu)) {
-          total.push(item.price)
+          total.push
+          globalOrderPrice.innerText = item.price + " €"
         }
       }
-      commandeSommeTotal(total)
     })
-  } else {  
+  } else {
     total = []
-
+    let allItemsOrdered = orderList.childNodes
     for (let item of allItemsOrdered) {
       let rawPrice = item.querySelector(".itemOrderPrice").innerText
       let splitPrice = rawPrice.split(" ")
@@ -199,10 +205,22 @@ function affichageTotal (e) {
       globalOrderPrice.innerText = result + " €"
     }
     commandeSommeTotal(total)
-  }
+  } 
 }
 
-function affichageTotalMenu (e) {
+function   affichageTotalPlusMoins () {
+  total = []
+  let allItemsOrdered = orderList.childNodes
+  for (let item of allItemsOrdered) {
+    let rawPrice = item.querySelector(".itemOrderPrice").innerText
+    let splitPrice = rawPrice.split(" ")
+    let price = Number(splitPrice[0])
+    let countItem = Number(item.querySelector(".countItem").innerText)
+    let result = price * countItem
+    total.push(result)
+    globalOrderPrice.innerText = result + " €"
+  }
+  commandeSommeTotal(total)
 }
 
 function finCommande () {
